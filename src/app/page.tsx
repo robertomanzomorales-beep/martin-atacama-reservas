@@ -30,7 +30,16 @@ export default function Home() {
 
     <section className="feature-section"><Reveal className="feature-image"><Image src={media.desert} alt="Camino del desierto de Atacama" fill sizes="(max-width: 700px) 100vw, 50vw" unoptimized /></Reveal><div className="feature-content"><Reveal><span className="eyebrow eyebrow-gold">EL VALOR DE CONOCER EL CAMINO</span><h2>El desierto se disfruta más cuando está en buenas manos.</h2><p>Con más de una década recorriendo la Región de Antofagasta, planificamos traslados para pasajeros, turistas y empresas con conocimiento real del territorio.</p><div className="feature-stats"><div><strong>10+</strong><span>años de experiencia</span></div><div><strong>24/7</strong><span>solicitudes en línea</span></div></div><Link href="/nosotros" className="button button-outline">Conozca nuestro servicio <ArrowRight size={17}/></Link></Reveal></div></section>
 
-    <section className="cta-strip"><Reveal className="container cta-grid"><div><span className="eyebrow">SU PRÓXIMO VIAJE</span><h2>El camino empieza con<br/>una buena coordinación.</h2></div><a href="#reservar" className="button button-dark">Planificar traslado <ArrowUpRight size={18}/></a></Reveal></section>
+    <section className="reservation-promo" aria-labelledby="reservation-promo-title">
+      <Image src="/images/spa3.webp" alt="Géiseres y paisaje del desierto de Atacama" fill sizes="100vw" unoptimized className="reservation-promo-photo" />
+      <div className="reservation-promo-shade" aria-hidden="true" />
+      <div className="container reservation-promo-inner"><Reveal className="reservation-promo-copy">
+        <span className="reservation-promo-eyebrow">NUEVO · RESERVAS EN LÍNEA</span>
+        <h2 id="reservation-promo-title">Solicite su traslado<br/>en línea.</h2>
+        <p>Indíquenos origen, destino, fecha y pasajeros. Revisaremos la disponibilidad y le enviaremos los detalles para confirmar el servicio.</p>
+        <a href="#reservar" className="button button-yellow">Ir a reservas en línea <ArrowUpRight size={18}/></a>
+      </Reveal></div>
+    </section>
     <WhatsAppPill />
   </SiteShell>;
 }
