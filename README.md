@@ -1,6 +1,6 @@
 # Martín Atacama Transfers · Sitio y reservas
 
-Proyecto Next.js 16 (App Router, TypeScript) para trabajar en VS Code. Incluye Inicio, Nosotros, Contacto, solicitud de reservas, panel privado, correo SMTP opcional y conexión Flow preparada. La reserva comienza como **solicitud pendiente**; no confirma disponibilidad ni cobra sin cotización.
+Proyecto Next.js 16 (App Router, TypeScript) para trabajar en VS Code. Incluye Inicio con carrusel y formulario de reserva en dos pasos, Nosotros, Contacto, reservas completas, panel privado, correo SMTP opcional y conexión Flow preparada. La reserva comienza como **solicitud pendiente**; no confirma disponibilidad ni cobra sin cotización.
 
 ## Iniciar en el equipo
 
@@ -8,9 +8,33 @@ Proyecto Next.js 16 (App Router, TypeScript) para trabajar en VS Code. Incluye I
 2. Ejecute `npm install`.
 3. Copie `.env.example` a `.env.local`. Deje `DATABASE_URL` vacío para usar la base local en `data/reservas.db`.
 4. Ejecute `npm run admin:setup`. Guarde `CLAVE_ADMIN` en un lugar seguro y copie `ADMIN_PASSWORD_HASH` y `SESSION_SECRET` a `.env.local`.
-5. Ejecute `npm run dev`. Abra `http://localhost:3000/reservar` y `http://localhost:3000/admin`.
+5. Ejecute `npm run dev`. Abra `http://localhost:3000/`, `http://localhost:3000/reservar` y `http://localhost:3000/admin`.
 
-**Imágenes:** hoy se muestran desde el sitio WordPress existente. Antes de cambiar el dominio o retirar WordPress, ejecute `npm run assets:pull` desde una conexión que pueda acceder al sitio actual. El comando copia las ocho imágenes originales a `public/images` y cambia las referencias para usarlas localmente. Confirme visualmente el logo y las fotografías antes de publicar. Si el servidor anterior no entrega algún archivo, solicite los originales y cópielos manualmente.
+### Imágenes originales
+
+Esta entrega contiene el diseño y las referencias a las fotografías actuales, pero **las capturas de pantalla no son los archivos originales**. Mientras no se importen, la web las carga del WordPress vigente.
+
+1. Cree una carpeta `assets-originales` en la raíz de este proyecto y copie dentro las imágenes que extrajo del sitio anterior. Puede incluir subcarpetas.
+2. Ejecute `npm run assets:import`. El programa reconoce los nombres que aparecen en sus capturas, copia cada imagen válida a `public/images` y actualiza `src/lib/local-assets.ts`.
+3. Si falta alguna fotografía, ejecute `npm run assets:pull` en su Mac con acceso al sitio actual. El programa intentará descargar cada original y conservará la URL del sitio antiguo para los archivos que no consiga.
+4. Compruebe el logo y las tres imágenes del carrusel, y suba `public/images` junto con el código. La carpeta `assets-originales` se omite del repositorio; los archivos finales en `public/images` sí se incluyen.
+
+El carrusel utiliza `Aeropuerto.webp`, `Calama_EntradaMonumental_Vialoop_2025.webp` y `Caminoo-desierto.webp`. El logo admite `Logotipo_sanmartin.webp` o `cropped-Logotipo_sanmartin.webp`. Las imágenes blancas de su captura son iconos; la interfaz usa iconos vectoriales nítidos para esa función.
+
+### Actualizar el repositorio que ya está conectado a Vercel
+
+Copie los archivos de esta versión sobre **su carpeta local existente del repositorio** `martin-atacama-reservas`; conserve su carpeta `.git` y cualquier `.env.local` personal. Después, desde la terminal de VS Code abierta en esa carpeta:
+
+```bash
+npm install
+npm run assets:import
+npm run build
+git add .
+git commit -m "Carrusel, reserva en inicio y navegación renovada"
+git push origin main
+```
+
+Si todavía no copió los originales en `assets-originales`, puede omitir temporalmente `npm run assets:import`; el sitio seguirá usando las fotografías del WordPress. El `git push` hará que Vercel publique la nueva versión automáticamente. Revise el dominio estable en la sección **Dominios** del proyecto.
 
 ## Flujo operativo
 
@@ -24,7 +48,7 @@ Proyecto Next.js 16 (App Router, TypeScript) para trabajar en VS Code. Incluye I
 
 - Necesita una base **libSQL remota persistente**. Configure `DATABASE_URL` y `DATABASE_AUTH_TOKEN`; el archivo SQLite local no sirve como almacenamiento persistente en Vercel. Las tablas se crean al primer uso.
 - Configure `APP_URL` con el dominio exacto `https://...`; también `ADMIN_PASSWORD_HASH`, `SESSION_SECRET` y SMTP. Las variables no llevan el prefijo `NEXT_PUBLIC_`.
-- Corra `npm run assets:pull` antes de subir el código y verifique que `public/images` esté en el repositorio.
+- Importe las fotografías originales y verifique que `public/images` esté en el repositorio antes de retirar el WordPress anterior.
 - Para pasar del WordPress actual al nuevo sitio, conserve la configuración DNS/MX de los correos. El dominio se cambia solo al finalizar pruebas y con respaldo del sitio anterior.
 - Revise el tratamiento de datos personales, el texto de privacidad, políticas de retención y controles contra abuso antes de habilitar formularios para público real. Evite usar datos reales durante las pruebas.
 

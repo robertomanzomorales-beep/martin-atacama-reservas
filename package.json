@@ -8,7 +8,8 @@
     "start": "next start",
     "lint": "eslint",
     "admin:setup": "node scripts/setup-admin.mjs",
-    "assets:pull": "node scripts/pull-assets.mjs"
+    "assets:pull": "node scripts/pull-assets.mjs",
+    "assets:import": "node scripts/import-assets.mjs"
   },
   "dependencies": {
     "@libsql/client": "^0.18.0",

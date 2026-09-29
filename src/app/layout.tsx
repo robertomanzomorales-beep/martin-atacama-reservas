@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import './globals.css';
+import './premium.css';
 
 export const metadata: Metadata = {
   title: { default: 'Martín Atacama Transfers | Traslados en Calama y San Pedro', template: '%s | Martín Atacama Transfers' },
