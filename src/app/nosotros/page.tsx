@@ -10,9 +10,9 @@ import { media } from '@/lib/media';
 export const metadata: Metadata = { title: 'Nosotros' };
 
 const fleet = [
-  { src: media.taxi, alt: 'Taxi de traslado en el aeropuerto de Calama' },
-  { src: media.vanMine, alt: 'Van de Martín Atacama Transfers en ruta a faena' },
-  { src: media.vanDesert, alt: 'Vehículo de Martín Atacama Transfers en el desierto' },
+  { src: media.taxi, alt: 'Taxi amarillo de Martín Atacama Transfers frente al aeropuerto El Loa', category: 'AEROPUERTO EL LOA', title: 'Traslados de aeropuerto' },
+  { src: media.mine, alt: 'Van plateada de Martín Atacama Transfers en una faena minera', category: 'SERVICIOS A EMPRESAS', title: 'Movilidad para equipos' },
+  { src: media.vanMine, alt: 'Van blanca de Martín Atacama Transfers en una ruta del desierto', category: 'RUTAS DEL NORTE', title: 'Viajes por la región' },
 ];
 
 export default function About() {
@@ -23,7 +23,11 @@ export default function About() {
       <Reveal><article><HeartHandshake size={29} strokeWidth={1.5}/><span className="eyebrow">MISIÓN</span><h3>Un viaje bien coordinado.</h3><p>Ofrecer transporte privado seguro y oportuno entre Calama, el aeropuerto y San Pedro de Atacama, con una atención cercana y un trayecto cómodo para cada pasajero.</p><ul><li>Puntualidad y seguridad.</li><li>Comunicación clara durante la coordinación.</li><li>Conductores que conocen las rutas del norte.</li></ul></article></Reveal>
       <Reveal delay={130}><article><Compass size={29} strokeWidth={1.5}/><span className="eyebrow">VISIÓN</span><h3>Confianza en cada ruta.</h3><p>Seguir creciendo como opción de transporte privado en la región, con capacidad de respuesta y calidad humana para turistas, empresas y trabajadores.</p><ul><li>Fortalecer la cobertura regional.</li><li>Ampliar la atención a empresas y faenas.</li><li>Mejorar continuamente la experiencia del pasajero.</li></ul></article></Reveal>
     </div></section>
-    <section className="fleet-section"><div className="container fleet-grid"><Reveal className="fleet-copy"><span className="eyebrow eyebrow-gold">NUESTRA FLOTA</span><h2>Vehículos preparados para las rutas del norte.</h2><p>Contamos con vehículos modernos y confortables, con aire acondicionado y mantención al día. Cada viaje se coordina para ofrecer una experiencia cómoda y puntual.</p><Link href="/reservar" className="button button-yellow">Coordinar traslado <ArrowUpRight size={18}/></Link></Reveal><Reveal className="fleet-gallery" delay={120}>{fleet.map((photo, index) => <div key={photo.src} className={`fleet-photo fleet-photo-${index + 1}`} style={{ backgroundImage: `url("${photo.src}")` }}><Image src={photo.src} alt={photo.alt} fill sizes="(max-width: 700px) 100vw, 25vw" unoptimized /></div>)}</Reveal></div></section>
+    <section className="fleet-section"><div className="container fleet-grid">
+      <Reveal className="fleet-copy"><span className="eyebrow eyebrow-gold">NUESTRA FLOTA</span><h2>Vehículos preparados para las rutas del norte.</h2></Reveal>
+      <Reveal className="fleet-intro" delay={100}><p>Una flota confortable, con aire acondicionado y mantención al día. Coordinamos cada traslado según la ruta y el horario de su viaje.</p><Link href="/reservar" className="button button-yellow">Coordinar traslado <ArrowUpRight size={18}/></Link></Reveal>
+      <Reveal className="fleet-gallery" delay={160}>{fleet.map((photo, index) => <figure className="fleet-card" key={photo.src}><div className={`fleet-photo fleet-photo-${index + 1}`}><Image src={photo.src} alt={photo.alt} fill sizes="(max-width: 700px) 100vw, 33vw" unoptimized /></div><figcaption><span>{photo.category}</span><h3>{photo.title}</h3></figcaption></figure>)}</Reveal>
+    </div></section>
     <WhatsAppPill />
   </SiteShell>;
 }
