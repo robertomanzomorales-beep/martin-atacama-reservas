@@ -23,17 +23,22 @@ El carrusel utiliza `Aeropuerto.webp`, `Calama_EntradaMonumental_Vialoop_2025.we
 
 ### Actualizar el repositorio que ya está conectado a Vercel
 
-Extraiga el ZIP de cambios en el Escritorio, **fuera de la carpeta del repositorio**. Copie su contenido sobre la raíz de `martin-atacama-reservas`; conserve `.git`, `.env.local` y sus fotografías en `public/images`. Si el ZIP se extrae como carpeta hermana `martin-atacama-mejoras-v3`, el comando, ejecutado desde la raíz del repositorio, es `cp -R ../martin-atacama-mejoras-v3/. ./`. Compruebe que existen `src/app/refinement.css` y `public/images/martin-logo-transparente.webp` antes de ejecutar:
+Descargue `martin-atacama-proyecto-completo.zip`. Este archivo contiene el proyecto completo, sin `node_modules`, datos locales ni credenciales. Abra en VS Code la carpeta del repositorio `martin-atacama-reservas` y compruebe que en la terminal existe `package.json` con `pwd` y `ls package.json`. Desde esa carpeta, ejecute:
 
 ```bash
+unzip -o "$HOME/Downloads/martin-atacama-proyecto-completo.zip" -d .
+ls src/app/refinement.css src/components/home-booking.tsx public/images/martin-logo-transparente.webp
 npm install
 npm run build
-git add .
-git commit -m "Mejorar identidad, héroes y reserva de inicio"
+git status --short
+git add -A
+git commit -m "Sitio completo y reservas en inicio"
 git push origin main
 ```
 
-Si tiene fotografías originales pendientes, ejecute `npm run assets:import` antes del build. El proyecto de Vercel conectado a Git debe generar un despliegue nuevo para este commit. Revise el estado **Ready** y abra el dominio estable indicado en **Dominios**; los enlaces largos que identifican un despliegue anterior continúan mostrando esa versión anterior.
+Si el navegador descargó el archivo con otro nombre o en el Escritorio, use la ruta real del ZIP entre comillas. El archivo se extrae sobre la raíz del repositorio; conserva la carpeta `.git`, el archivo `.env.local` y fotografías adicionales que ya estén en `public/images`. Si tiene fotografías originales pendientes, ejecute `npm run assets:import` antes del build.
+
+Un `npm run build` correcto **no publica** cambios por sí solo: el `git push` debe enviar un commit nuevo. Compruebe en Vercel que ese commit figure como **Ready** y abra el dominio de producción indicado en **Settings → Domains**. Una URL larga de un despliegue anterior seguirá mostrando aquella versión.
 
 ## Flujo operativo
 
