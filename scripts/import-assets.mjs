@@ -1,12 +1,32 @@
-import { copyFile, mkdir, stat } from 'node:fs/promises';
+import { copyFile, mkdir, readdir, stat } from 'node:fs/promises';
 import { basename, resolve } from 'node:path';
 import { assets } from './assets-config.mjs';
 import { destination, saveManifest, targetName, walk } from './assets-helpers.mjs';
 
-const source = resolve(process.argv[2] || 'assets-originales');
+let source = resolve(process.argv[2] || 'assets-originales');
 let files;
 try { files = await walk(source); }
-catch { console.error(`No se encontró la carpeta ${source}. Copie allí las imágenes originales o indique su ruta como argumento.`); process.exit(1); }
+catch {
+  files = [];
+  if (!process.argv[2]) {
+    const ignored = new Set(['node_modules', '.next', '.git', '.vercel', 'src', 'public', 'scripts', 'data']);
+    const knownNames = new Set(assets.flatMap(asset => asset.names.map(name => name.toLowerCase())));
+    let best = { directory: '', files: [], matches: 0 };
+    for (const entry of await readdir(process.cwd(), { withFileTypes: true })) {
+      if (!entry.isDirectory() || ignored.has(entry.name)) continue;
+      const candidate = resolve(entry.name);
+      const candidateFiles = await walk(candidate);
+      const matches = candidateFiles.filter(path => knownNames.has(basename(path).toLowerCase())).length;
+      if (matches > best.matches) best = { directory: candidate, files: candidateFiles, matches };
+    }
+    if (best.matches) {
+      source = best.directory;
+      files = best.files;
+      console.log(`Imágenes originales encontradas en ${source} (${best.matches} coincidencias).`);
+    }
+  }
+  if (!files.length) console.log('No hay carpeta de imágenes originales; se conservarán las imágenes ya importadas en public/images.');
+}
 
 await mkdir(destination, { recursive: true });
 let copied = 0;

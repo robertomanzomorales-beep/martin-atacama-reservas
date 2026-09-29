@@ -1,2 +1,2 @@
-// Este archivo se actualiza con npm run assets:import o npm run assets:pull.
+// Generado por npm run assets:import / assets:pull.
 export const localAssets: Record<string, string> = {};

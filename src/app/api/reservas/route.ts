@@ -25,12 +25,23 @@ export async function POST(request: Request) {
     });
     const saved = await findReservation(reference);
     if (saved) {
-      const notification = await notifyReservation(saved);
-      await getDb().execute({ sql: 'UPDATE reservations SET notification_status = ? WHERE id = ?', args: [notification, id] });
+      try {
+        const notification = await notifyReservation(saved);
+        await getDb().execute({ sql: 'UPDATE reservations SET notification_status = ? WHERE id = ?', args: [notification, id] });
+      } catch (notificationError) {
+        // La solicitud ya existe: un problema de correo no debe invitar a crearla dos veces.
+        console.error('La solicitud se guardó, pero falló la actualización de notificación', notificationError);
+      }
     }
     return NextResponse.json({ reference, message: 'Solicitud registrada. El equipo confirmará su disponibilidad.' }, { status: 201, headers: { 'Cache-Control': 'no-store' } });
   } catch (error) {
     console.error('No se pudo registrar la solicitud', error);
-    return NextResponse.json({ error: 'No pudimos registrar la solicitud. Intente nuevamente.' }, { status: 500 });
+    const configurationMissing = (process.env.VERCEL || process.env.NODE_ENV === 'production') &&
+      !(process.env.DATABASE_URL || process.env.TURSO_DATABASE_URL);
+    return NextResponse.json({
+      error: configurationMissing
+        ? 'Las reservas en línea aún no están habilitadas. Comuníquese por WhatsApp para coordinar su viaje.'
+        : 'No pudimos registrar la solicitud. Intente nuevamente.',
+    }, { status: configurationMissing ? 503 : 500 });
   }
 }

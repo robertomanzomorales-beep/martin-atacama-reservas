@@ -23,22 +23,28 @@ El carrusel utiliza `Aeropuerto.webp`, `Calama_EntradaMonumental_Vialoop_2025.we
 
 ### Actualizar el repositorio que ya está conectado a Vercel
 
-Descargue `martin-atacama-proyecto-completo.zip`. Este archivo contiene el proyecto completo, sin `node_modules`, datos locales ni credenciales. Abra en VS Code la carpeta del repositorio `martin-atacama-reservas` y compruebe que en la terminal existe `package.json` con `pwd` y `ls package.json`. Desde esa carpeta, ejecute:
+Descargue `martin-atacama-redisenio-reservas-v4.zip`. Este archivo contiene el proyecto completo, sin `node_modules`, datos locales ni credenciales. Abra en VS Code la carpeta del repositorio `martin-atacama-reservas` y compruebe que en la terminal existe `package.json` con `pwd` y `ls package.json`. Desde esa carpeta, ejecute:
 
 ```bash
-unzip -o "$HOME/Downloads/martin-atacama-proyecto-completo.zip" -d .
-ls src/app/refinement.css src/components/home-booking.tsx public/images/martin-logo-transparente.webp
+unzip -o "$HOME/Downloads/martin-atacama-redisenio-reservas-v4.zip" -d .
+ls src/app/studio-v4.css src/components/home-booking.tsx public/images/martin-logo-transparente.webp
+```
+
+Si la comprobación anterior muestra esos tres archivos, continúe:
+
+```bash
+npm run assets:import
 npm install
 npm run build
 git status --short
 git add -A
-git commit -m "Sitio completo y reservas en inicio"
+git commit -m "Rediseño y reservas en inicio"
 git push origin main
 ```
 
-Si el navegador descargó el archivo con otro nombre o en el Escritorio, use la ruta real del ZIP entre comillas. El archivo se extrae sobre la raíz del repositorio; conserva la carpeta `.git`, el archivo `.env.local` y fotografías adicionales que ya estén en `public/images`. Si tiene fotografías originales pendientes, ejecute `npm run assets:import` antes del build.
+Si el navegador descargó el archivo con otro nombre o en el Escritorio, use la ruta real del ZIP entre comillas. El archivo se extrae sobre la raíz del repositorio; conserva la carpeta `.git`, el archivo `.env.local` y fotografías adicionales que ya estén en `public/images`. `npm run assets:import` busca `assets-originales` y, si no existe, detecta una carpeta de fotografías originales en la raíz del proyecto. También puede indicar la ruta exacta: `npm run assets:import -- "nombre-de-su-carpeta"`.
 
-Un `npm run build` correcto **no publica** cambios por sí solo: el `git push` debe enviar un commit nuevo. Compruebe en Vercel que ese commit figure como **Ready** y abra el dominio de producción indicado en **Settings → Domains**. Una URL larga de un despliegue anterior seguirá mostrando aquella versión.
+Un `npm run build` correcto **no publica** cambios por sí solo: el `git push` debe enviar un commit nuevo. Compruebe en Vercel que ese commit figure como **Ready** y abra `https://martin-atacama-reservas.vercel.app/`. Una URL larga de un despliegue anterior seguirá mostrando aquella versión.
 
 ## Flujo operativo
 
@@ -48,10 +54,18 @@ Un `npm run build` correcto **no publica** cambios por sí solo: el `git push` d
 4. Cuando Flow esté configurado, al guardar una solicitud como `cotizada` con valor se envía un enlace de pago al pasajero. Flow crea la orden y devuelve un token. La confirmación del pago se consulta a Flow por API y se compara con la referencia y el monto guardado. `pagado` y `confirmada` son estados separados.
 5. El formulario de Contacto guarda mensajes en la misma base y los muestra en el panel.
 
-## Publicar en Vercel
+## Activar las reservas en Vercel
 
-- Necesita una base **libSQL remota persistente**. Configure `DATABASE_URL` y `DATABASE_AUTH_TOKEN`; el archivo SQLite local no sirve como almacenamiento persistente en Vercel. Las tablas se crean al primer uso.
-- Configure `APP_URL` con el dominio exacto `https://...`; también `ADMIN_PASSWORD_HASH`, `SESSION_SECRET` y SMTP. Las variables no llevan el prefijo `NEXT_PUBLIC_`.
+El sitio publicado muestra los formularios, pero **sin una base remota el envío devuelve HTTP 503 y no registra solicitudes**. Configure esto antes de presentar el sistema:
+
+1. Cree una base **libSQL compatible** en un proveedor como Turso. Copie su URL `libsql://...` y un token de acceso para esta base. En Turso compruebe que la base use el motor libSQL compatible con `@libsql/client`.
+2. En **Vercel → proyecto → Settings → Environment Variables**, agregue `DATABASE_URL` con esa URL y `DATABASE_AUTH_TOKEN` con el token. Elija **Production**. También se aceptan `TURSO_DATABASE_URL` y `TURSO_AUTH_TOKEN` si ya utiliza esos nombres.
+3. Agregue `APP_URL=https://martin-atacama-reservas.vercel.app`. Genere la clave del panel con `npm run admin:setup` en su equipo y agregue `ADMIN_PASSWORD_HASH` y `SESSION_SECRET` en Vercel. Guarde la clave administrativa en un gestor de contraseñas. Ninguna de estas variables lleva prefijo `NEXT_PUBLIC_`.
+4. Para las **notificaciones por correo**, agregue `SMTP_HOST`, `SMTP_PORT`, `SMTP_SECURE`, `SMTP_USER`, `SMTP_PASS`, `SMTP_FROM` y `BOOKING_EMAIL` con datos autorizados del servidor de correo. La base puede guardar reservas sin SMTP; el aviso y acuse se envían solo cuando el correo está configurado.
+5. Haga **Redeploy** del último despliegue en Production después de guardar las variables. Abra `https://martin-atacama-reservas.vercel.app/api/estado`: debe mostrar `"reservas":"operativas"`. Luego envíe una solicitud de prueba desde Inicio, anote la referencia `MAT-...` y compruébela en `/admin`. Verifique la recepción de ambos correos si configuró SMTP. El estado `correo: configurado_sin_prueba_de_envio` significa que todavía hay que hacer ese envío real.
+
+El archivo SQLite local en `data/reservas.db` **solo sirve para desarrollar y probar en el equipo**; no persiste en Vercel. Las tablas de la base remota se crean al primer uso. No envíe URL, token, claves o contraseña por chat ni los incluya en Git.
+
 - Importe las fotografías originales y verifique que `public/images` esté en el repositorio antes de retirar el WordPress anterior.
 - Para pasar del WordPress actual al nuevo sitio, conserve la configuración DNS/MX de los correos. El dominio se cambia solo al finalizar pruebas y con respaldo del sitio anterior.
 - Revise el tratamiento de datos personales, el texto de privacidad, políticas de retención y controles contra abuso antes de habilitar formularios para público real. Evite usar datos reales durante las pruebas.

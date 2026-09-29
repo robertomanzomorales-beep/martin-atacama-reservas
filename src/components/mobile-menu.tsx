@@ -11,8 +11,7 @@ export function DesktopNav() {
     <Link href="/" aria-current={pathname === '/' ? 'page' : undefined}>Inicio</Link>
     <Link href="/nosotros" aria-current={pathname === '/nosotros' ? 'page' : undefined}>Nosotros</Link>
     <Link href="/contacto" aria-current={pathname === '/contacto' ? 'page' : undefined}>Contacto</Link>
-    <Link className="nav-book" href="/reservar" aria-current={pathname === '/reservar' ? 'page' : undefined}>Reservar <ArrowUpRight size={17}/></Link>
-    <a className="nav-email" href="mailto:contacto@transferatacamachile.cl">contacto@transferatacamachile.cl</a>
+    <Link className="nav-book" href="/reservar" aria-current={pathname === '/reservar' ? 'page' : undefined}>Reservar traslado <ArrowUpRight size={16}/></Link>
   </nav>;
 }
 

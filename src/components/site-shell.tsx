@@ -37,7 +37,7 @@ export function Footer() {
       <dl><div><dt>Correo</dt><dd><a href="mailto:contacto@transferatacamachile.cl">contacto@transferatacamachile.cl</a></dd></div>
       <div><dt>WhatsApp</dt><dd><a href={whatsapp} target="_blank" rel="noopener noreferrer">+56 9 9710 6497</a></dd></div>
       <div><dt>Ubicación</dt><dd>Calama, Región de Antofagasta</dd></div>
-      <div><dt>Sitio web</dt><dd><a href="https://transferatacamachile.cl/" target="_blank" rel="noopener noreferrer">transferatacamachile.cl</a></dd></div></dl>
+      <div><dt>Atención</dt><dd>Solicitudes de traslado en línea, todos los días</dd></div></dl>
     </div>
   </Reveal><div className="container footer-bottom"><span>© {new Date().getFullYear()} Martín Atacama Transfers. Todos los derechos reservados.</span><span>Diseñado por <a href="https://vialoop.cl" target="_blank" rel="noopener noreferrer">vialoop.cl</a></span></div><a href="#top" className="back-to-top" aria-label="Volver al inicio"><ArrowUp size={20}/></a></footer>;
 }

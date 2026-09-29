@@ -56,18 +56,9 @@ export function HomeBooking() {
 
   return <section className="home-booking-section" id="reservar" aria-labelledby="home-booking-heading"><div className="container">
     <Reveal className="home-booking-shell">
-      <aside className="home-booking-aside">
-        <span className="home-booking-overline"><span aria-hidden="true"/> RESERVAS MARTÍN</span>
-        <h2 id="home-booking-heading">Su viaje,<br/><em>bien organizado.</em></h2>
-        <p>Indíquenos cuándo y hacia dónde viaja. Nuestro equipo revisará la disponibilidad y coordinará los detalles con usted.</p>
-        <div className="home-booking-route" aria-hidden="true"><span/><i/><span/></div>
-        <div className="home-booking-aside-note"><span>CALAMA</span><span>SU DESTINO</span></div>
-        <small>Atención personalizada en cada trayecto.</small>
-      </aside>
-      <div className="home-booking-panel">
       <div className="home-booking-heading">
-        <div><span className="eyebrow">PLANIFIQUE SU TRASLADO</span><h3>{step === 1 ? 'Elija su ruta' : 'Sus datos de contacto'}</h3></div>
-        <div className="home-booking-progress" aria-label={`Paso ${step} de 2`}><span className="current">01 <b>Trayecto</b></span><i/><span className={step === 2 ? 'current' : ''}>02 <b>Contacto</b></span></div>
+        <div><span className="eyebrow">RESERVAS EN LÍNEA</span><h2 id="home-booking-heading">Planifique su traslado</h2><p>{step === 1 ? 'Indíquenos los datos de su viaje.' : 'Ya tenemos el trayecto. Solo falta saber cómo contactarle.'}</p></div>
+        <div className="home-booking-progress" aria-label={`Paso ${step} de 2`}><span className={step === 1 ? 'current' : ''}>01 <b>Trayecto</b></span><i/><span className={step === 2 ? 'current' : ''}>02 <b>Contacto</b></span></div>
       </div>
       {state === 'sent' ? <div className="home-booking-success" role="status"><span className="success-icon"><Check size={28}/></span><div><h3>Solicitud recibida</h3><p>Guardamos los datos de su viaje. Nuestro equipo revisará la disponibilidad y se comunicará con usted.</p><strong>Referencia: {reference}</strong></div><button type="button" className="text-link" onClick={() => { setState('idle'); setStep(1); setReference(''); }}>Nueva solicitud <ArrowRight size={16}/></button></div> :
       <form ref={formRef} onSubmit={submit} className="home-booking-form">
@@ -96,7 +87,6 @@ export function HomeBooking() {
         <label className="honeypot" aria-hidden="true">Sitio web<input name="website" tabIndex={-1} autoComplete="off"/></label>
         {error && <p className="form-error" role="alert">{error}</p>}
       </form>}
-      </div>
     </Reveal>
   </div></section>;
 }

@@ -33,14 +33,16 @@ let schemaReady: Promise<void> | undefined;
 
 export function getDb() {
   if (!client) {
-    const url = process.env.DATABASE_URL || 'file:./data/reservas.db';
+    const url = process.env.DATABASE_URL || process.env.TURSO_DATABASE_URL || 'file:./data/reservas.db';
     if (url.startsWith('file:')) {
       if (process.env.VERCEL || process.env.NODE_ENV === 'production') {
-        throw new Error('Configure DATABASE_URL remoto antes de publicar.');
+        throw new Error('Las reservas necesitan DATABASE_URL y DATABASE_AUTH_TOKEN de una base libSQL remota en Vercel.');
       }
       mkdirSync(join(process.cwd(), 'data'), { recursive: true });
+    } else if (!/^(libsql|https|wss?):\/\//.test(url)) {
+      throw new Error('DATABASE_URL debe ser la URL de una base libSQL compatible.');
     }
-    client = createClient({ url, authToken: process.env.DATABASE_AUTH_TOKEN });
+    client = createClient({ url, authToken: process.env.DATABASE_AUTH_TOKEN || process.env.TURSO_AUTH_TOKEN });
   }
   return client;
 }
