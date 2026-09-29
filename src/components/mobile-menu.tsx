@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { ArrowUpRight, Menu, X } from 'lucide-react';
+import { ArrowUpRight, LockKeyhole, Menu, X } from 'lucide-react';
 
 export function DesktopNav() {
   const pathname = usePathname();
@@ -11,6 +11,7 @@ export function DesktopNav() {
     <Link href="/" aria-current={pathname === '/' ? 'page' : undefined}>Inicio</Link>
     <Link href="/nosotros" aria-current={pathname === '/nosotros' ? 'page' : undefined}>Nosotros</Link>
     <Link href="/contacto" aria-current={pathname === '/contacto' ? 'page' : undefined}>Contacto</Link>
+    <Link className="nav-system" href="/admin/acceso" aria-label="Acceso al sistema de reservas para administración"><LockKeyhole size={15} strokeWidth={1.8}/> Acceso al sistema</Link>
     <Link className="nav-book" href="/reservar" aria-current={pathname === '/reservar' ? 'page' : undefined}>Reservar traslado <ArrowUpRight size={16}/></Link>
   </nav>;
 }
@@ -50,8 +51,9 @@ export function MobileMenu() {
     <button ref={triggerRef} type="button" className="menu-button" onClick={() => setOpen(true)} aria-expanded={open} aria-controls="mobile-navigation" aria-label="Abrir menú"><Menu size={25}/><span>Menú</span></button>
     <div className={`mobile-overlay ${open ? 'open' : ''}`} aria-hidden={!open} onClick={() => setOpen(false)} />
     <div id="mobile-navigation" className={`mobile-panel ${open ? 'open' : ''}`} role="dialog" aria-modal={open} aria-label="Navegación" aria-hidden={!open} inert={!open}>
-      <div className="mobile-panel-top"><span>Martín Atacama Transfers</span><button ref={closeRef} type="button" onClick={() => setOpen(false)} aria-label="Cerrar menú"><X size={23}/></button></div>
+      <div className="mobile-panel-top"><span>Martín Atacama Transfers <small>MENÚ PRINCIPAL</small></span><button ref={closeRef} type="button" onClick={() => setOpen(false)} aria-label="Cerrar menú"><X size={23}/></button></div>
       <nav aria-label="Navegación móvil">{links.map((link, index) => <Link href={link.href} onClick={() => setOpen(false)} aria-current={pathname === link.href ? 'page' : undefined} key={link.href}><span>0{index + 1}</span>{link.label}<ArrowUpRight size={19}/></Link>)}</nav>
+      <Link className="mobile-system-link" href="/admin/acceso" onClick={() => setOpen(false)}><LockKeyhole size={19} strokeWidth={1.7}/><span><strong>Acceso al sistema</strong><small>Panel privado de reservas</small></span><ArrowUpRight size={18}/></Link>
       <div className="mobile-panel-footer"><span>PLANIFIQUE SU PRÓXIMO VIAJE</span><a href="tel:+56997106497">+56 9 9710 6497</a><a href="mailto:contacto@transferatacamachile.cl">contacto@transferatacamachile.cl</a></div>
     </div>
   </div>;
