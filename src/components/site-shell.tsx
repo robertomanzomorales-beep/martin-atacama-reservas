@@ -15,6 +15,7 @@ export function Header() {
       <DesktopNav />
       <MobileMenu />
     </div></header>
+    <div className="site-header-spacer" aria-hidden="true" />
   </>;
 }
 

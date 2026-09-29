@@ -30,6 +30,26 @@ export function MobileMenu() {
   const triggerRef = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
+    const header = triggerRef.current?.closest<HTMLElement>('.site-header');
+    const topline = document.querySelector<HTMLElement>('.topline');
+    if (!header || !topline) return;
+
+    const syncPosition = () => {
+      const mobile = window.matchMedia('(max-width: 900px)').matches;
+      header.classList.toggle('is-fixed-mobile', mobile && window.scrollY >= topline.offsetHeight);
+    };
+
+    syncPosition();
+    window.addEventListener('scroll', syncPosition, { passive: true });
+    window.addEventListener('resize', syncPosition);
+    return () => {
+      header.classList.remove('is-fixed-mobile');
+      window.removeEventListener('scroll', syncPosition);
+      window.removeEventListener('resize', syncPosition);
+    };
+  }, []);
+
+  useEffect(() => {
     if (!open) return;
     const trigger = triggerRef.current;
     const previousOverflow = document.body.style.overflow;

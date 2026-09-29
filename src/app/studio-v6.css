@@ -36,6 +36,7 @@ body { color: var(--ink); }
   backdrop-filter: none;
 }
 .nav-inner { height: 88px; }
+.site-header-spacer { display: none; }
 .brand-image-only {
   position: relative;
   z-index: 2;
@@ -387,6 +388,8 @@ body { color: var(--ink); }
   .home-booking-next { grid-column: span 2; }
 }
 @media (max-width: 900px) {
+  .site-header.is-fixed-mobile { position: fixed; inset: 0 0 auto; width: 100%; }
+  .site-header.is-fixed-mobile + .site-header-spacer { display: block; height: 76px; }
   .nav-links { display: none; }
   .mobile-wrap { display: block; }
   .nav-inner { height: 73px; }
