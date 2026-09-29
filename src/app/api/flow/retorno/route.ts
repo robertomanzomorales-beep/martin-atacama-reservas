@@ -8,7 +8,7 @@ export async function POST(request: Request) {
     const result = await syncFlow(String(form.get('token') || ''));
     const url = new URL('/pago/resultado', process.env.APP_URL || request.url);
     url.searchParams.set('ref', result.reference);
-    url.searchParams.set('estado', result.paymentStatus);
+    url.searchParams.set('t', result.accessToken);
     return NextResponse.redirect(url, 303);
   } catch (error) { console.error('No se pudo verificar retorno Flow', error); return NextResponse.redirect(new URL('/pago/resultado?estado=error', process.env.APP_URL || request.url), 303); }
 }

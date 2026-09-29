@@ -23,6 +23,7 @@ export async function PATCH(request: Request, context: { params: Promise<{ refer
   const { status, quotedAmount } = parsed.data;
   if (previous.flow_token && quotedAmount !== previous.quoted_amount) return NextResponse.json({ error: 'El valor no puede cambiar después de crear la orden de pago.' }, { status: 409 });
   if (previous.payment_status === 'pagado' && status === 'rechazada') return NextResponse.json({ error: 'Esta solicitud tiene un pago. Revise el reembolso antes de rechazarla.' }, { status: 409 });
+  if (previous.flow_token && previous.payment_status === 'pendiente' && !['cotizada', 'confirmada'].includes(status)) return NextResponse.json({ error: 'Hay una orden de pago pendiente. Revise su estado en Flow antes de cambiar la solicitud.' }, { status: 409 });
   if (status === 'cotizada' && quotedAmount === null) return NextResponse.json({ error: 'Ingrese un valor para cotizar.' }, { status: 400 });
   await ensureSchema();
   await getDb().execute({ sql: 'UPDATE reservations SET status = ?, quoted_amount = ?, updated_at = ? WHERE reference = ?', args: [status, quotedAmount, new Date().toISOString(), reference] });

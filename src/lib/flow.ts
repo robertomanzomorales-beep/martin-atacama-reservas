@@ -1,7 +1,7 @@
 import 'server-only';
 import { createHmac } from 'node:crypto';
+import { parseFlowStatus, type FlowStatus } from './flow-status';
 
-export type FlowStatus = { commerceOrder: string; status: number; amount: number; flowOrder: number; };
 export const flowConfigured = () => Boolean(process.env.FLOW_API_KEY && process.env.FLOW_SECRET_KEY && process.env.APP_URL);
 function baseUrl() { return process.env.FLOW_ENV === 'production' ? 'https://www.flow.cl/api' : 'https://sandbox.flow.cl/api'; }
 function signed(params: Record<string, string | number>) {
@@ -29,5 +29,5 @@ export async function getFlowStatus(token: string): Promise<FlowStatus> {
   const params = signed({ apiKey: process.env.FLOW_API_KEY!, token });
   const response = await fetch(`${baseUrl()}/payment/getStatus?${new URLSearchParams(params)}`, { cache: 'no-store', signal: AbortSignal.timeout(8000) });
   if (!response.ok) throw new Error(`No se pudo consultar el pago (${response.status})`);
-  return response.json() as Promise<FlowStatus>;
+  return parseFlowStatus(await response.json());
 }
