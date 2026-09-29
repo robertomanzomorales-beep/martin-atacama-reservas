@@ -20,11 +20,11 @@ El carrusel utiliza `Aeropuerto.webp`, `Calama_EntradaMonumental_Vialoop_2025.we
 
 ### Actualizar el repositorio que ya está conectado a Vercel
 
-Descargue `martin-atacama-redisenio-reservas-v5.zip`. Este archivo contiene el proyecto completo, las fotografías locales y el logotipo, sin `node_modules`, datos locales ni credenciales. Abra en VS Code la carpeta del repositorio `martin-atacama-reservas` y compruebe que en la terminal existe `package.json` con `pwd` y `ls package.json`. Desde esa carpeta, ejecute:
+Descargue `martin-atacama-redisenio-reservas-v6.zip`. Este archivo contiene el proyecto completo, las fotografías locales y el logotipo, sin `node_modules`, datos locales ni credenciales. Abra en VS Code la carpeta del repositorio `martin-atacama-reservas` y compruebe que en la terminal existe `package.json` con `pwd` y `ls package.json`. Desde esa carpeta, ejecute:
 
 ```bash
-unzip -o "$HOME/Downloads/martin-atacama-redisenio-reservas-v5.zip" -d .
-ls src/app/studio-v5.css src/components/home-booking.tsx public/images/airport.webp
+unzip -o "$HOME/Downloads/martin-atacama-redisenio-reservas-v6.zip" -d .
+ls src/app/studio-v6.css src/components/home-booking.tsx public/images/airport.webp
 ```
 
 Si la comprobación anterior muestra esos tres archivos, continúe:
