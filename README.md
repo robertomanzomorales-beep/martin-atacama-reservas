@@ -12,28 +12,24 @@ Proyecto Next.js 16 (App Router, TypeScript) para trabajar en VS Code. Incluye I
 
 ### Imágenes originales
 
-Esta entrega incluye el logotipo transparente adjunto en `public/images/martin-logo-transparente.webp`. Las demás fotografías mantienen referencias al sitio vigente; si todavía no se han importado los archivos originales, se cargarán desde WordPress.
+Esta entrega incluye el logotipo transparente y las diez fotografías del sitio anterior en `public/images`. El sitio publicado carga estos archivos desde el propio proyecto y no depende del WordPress anterior. No necesita importar imágenes para que funcione esta versión.
 
-1. Cree una carpeta `assets-originales` en la raíz de este proyecto y copie dentro las imágenes que extrajo del sitio anterior. Puede incluir subcarpetas.
-2. Ejecute `npm run assets:import`. El programa reconoce los nombres que aparecen en sus capturas, copia cada imagen válida a `public/images` y actualiza `src/lib/local-assets.ts`.
-3. Si falta alguna fotografía, ejecute `npm run assets:pull` en su Mac con acceso al sitio actual. El programa intentará descargar cada original y conservará la URL del sitio antiguo para los archivos que no consiga.
-4. Compruebe las tres imágenes del carrusel y suba `public/images` junto con el código. La carpeta `assets-originales` se omite del repositorio; los archivos finales en `public/images` sí se incluyen. El logotipo visible es siempre el transparente incluido en esta entrega.
+Si más adelante Martín entrega fotografías nuevas, cópielas en `assets-originales` y ejecute `npm run assets:import`; el programa actualizará las imágenes finales en `public/images` y `src/lib/local-assets.ts`. La carpeta `assets-originales` se omite del repositorio; `public/images` sí se publica. El logotipo visible se encuentra en `public/images/martin-logo-transparente.webp`.
 
 El carrusel utiliza `Aeropuerto.webp`, `Calama_EntradaMonumental_Vialoop_2025.webp` y `Caminoo-desierto.webp`. Las imágenes blancas de su captura son iconos; la interfaz usa iconos vectoriales nítidos para esa función.
 
 ### Actualizar el repositorio que ya está conectado a Vercel
 
-Descargue `martin-atacama-redisenio-reservas-v4.zip`. Este archivo contiene el proyecto completo, sin `node_modules`, datos locales ni credenciales. Abra en VS Code la carpeta del repositorio `martin-atacama-reservas` y compruebe que en la terminal existe `package.json` con `pwd` y `ls package.json`. Desde esa carpeta, ejecute:
+Descargue `martin-atacama-redisenio-reservas-v5.zip`. Este archivo contiene el proyecto completo, las fotografías locales y el logotipo, sin `node_modules`, datos locales ni credenciales. Abra en VS Code la carpeta del repositorio `martin-atacama-reservas` y compruebe que en la terminal existe `package.json` con `pwd` y `ls package.json`. Desde esa carpeta, ejecute:
 
 ```bash
-unzip -o "$HOME/Downloads/martin-atacama-redisenio-reservas-v4.zip" -d .
-ls src/app/studio-v4.css src/components/home-booking.tsx public/images/martin-logo-transparente.webp
+unzip -o "$HOME/Downloads/martin-atacama-redisenio-reservas-v5.zip" -d .
+ls src/app/studio-v5.css src/components/home-booking.tsx public/images/airport.webp
 ```
 
 Si la comprobación anterior muestra esos tres archivos, continúe:
 
 ```bash
-npm run assets:import
 npm install
 npm run build
 git status --short

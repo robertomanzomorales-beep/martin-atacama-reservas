@@ -2,8 +2,8 @@ import { localAssets } from './local-assets';
 
 const uploads = 'https://transferatacamachile.cl/wp-content/uploads';
 
-// Las fotos originales del proyecto tienen prioridad. Mientras falte alguna,
-// se conserva su URL del sitio anterior para que el diseño siga siendo visible.
+// Las fotografías incluidas en public/images tienen prioridad. La URL anterior
+// sirve como respaldo si se elimina accidentalmente algún archivo local.
 export const media = {
   logo: '/images/martin-logo-transparente.webp',
   airport: localAssets.airport || `${uploads}/2025/12/Aeropuerto.webp`,

@@ -10,9 +10,11 @@ export const metadata: Metadata = { title: 'Solicitar reserva' };
 
 export default function BookingPage() {
   return <SiteShell>
-    <section className="booking-title"><div className="container booking-title-grid">
+    <section className="booking-title">
+      <div className="booking-title-photo"><Image src={media.desert} alt="Camino del desierto de Atacama" fill sizes="100vw" unoptimized priority /></div>
+      <div className="booking-title-shade" />
+      <div className="container booking-title-grid">
       <Reveal className="booking-heading"><span className="eyebrow eyebrow-gold">RESERVAS EN LÍNEA</span><h1>Planifiquemos<br/>su traslado.</h1><p>Comparta los datos de su viaje. Revisaremos la disponibilidad y nos comunicaremos con usted para confirmar el servicio.</p></Reveal>
-      <Reveal className="booking-title-photo" delay={100}><Image src={media.desert} alt="Camino del desierto de Atacama" fill sizes="(max-width: 820px) 100vw, 50vw" unoptimized priority /></Reveal>
     </div>
     </section>
     <section className="booking-section"><div className="container booking-layout">

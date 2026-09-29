@@ -10,9 +10,9 @@ const slides = [
   {
     image: media.airport,
     alt: 'Acceso al aeropuerto de Calama',
-    eyebrow: 'CALAMA · AEROPUERTO · SAN PEDRO',
-    title: <>El norte comienza<br />con un buen viaje.</>,
-    description: 'Traslados privados planificados con puntualidad, comodidad y atención en cada detalle.',
+    eyebrow: 'TRASLADOS CALAMA · SAN PEDRO',
+    title: <>Transporte seguro<br /><em>y puntual.</em></>,
+    description: 'Viajes privados entre Calama, el aeropuerto y San Pedro de Atacama, coordinados con experiencia local.',
   },
   {
     image: media.entrance,
@@ -60,9 +60,10 @@ export function HeroSlider() {
         </div>
       </div>
     </div>)}
-    <div className="hero-controls container">
+    <div className="hero-controls">
+      <button className="hero-arrow hero-prev" type="button" onClick={() => move(-1)} aria-label="Diapositiva anterior"><ChevronLeft size={23}/></button>
       <div className="hero-dots" aria-label="Seleccionar diapositiva">{slides.map((slide, index) => <button type="button" key={slide.eyebrow} onClick={() => setActive(index)} className={index === active ? 'active' : ''} aria-label={`Mostrar diapositiva ${index + 1}`} aria-current={index === active ? 'true' : undefined}><span /></button>)}</div>
-      <div className="hero-arrows"><button type="button" onClick={() => move(-1)} aria-label="Diapositiva anterior"><ChevronLeft size={20}/></button><span>{String(active + 1).padStart(2, '0')} <i>/</i> {String(slides.length).padStart(2, '0')}</span><button type="button" onClick={() => move(1)} aria-label="Diapositiva siguiente"><ChevronRight size={20}/></button></div>
+      <button className="hero-arrow hero-next" type="button" onClick={() => move(1)} aria-label="Diapositiva siguiente"><ChevronRight size={23}/></button>
     </div>
   </section>;
 }
