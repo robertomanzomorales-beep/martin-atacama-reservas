@@ -1,6 +1,6 @@
 # Martín Atacama Transfers · Sitio y reservas
 
-Proyecto Next.js 16 (App Router, TypeScript) para trabajar en VS Code. Incluye Inicio con carrusel y formulario de reserva en dos pasos, Nosotros, Contacto, reservas completas, panel privado, correo SMTP opcional y conexión Flow preparada. La reserva comienza como **solicitud pendiente**; no confirma disponibilidad ni cobra sin cotización.
+Proyecto Next.js 16 (App Router, TypeScript) para trabajar en VS Code. Incluye Inicio con carrusel y formulario de reserva en dos pasos, Nosotros, Contacto, reservas completas, panel privado, correo SMTP opcional y conexión Flow preparada. La reserva comienza como **solicitud pendiente**; no confirma disponibilidad ni cobra sin cotización. Los formularios del Inicio y de `/reservar` envían al mismo endpoint `/api/reservas`, validan con el mismo esquema y guardan la solicitud en la misma base.
 
 ## Iniciar en el equipo
 
@@ -12,29 +12,28 @@ Proyecto Next.js 16 (App Router, TypeScript) para trabajar en VS Code. Incluye I
 
 ### Imágenes originales
 
-Esta entrega contiene el diseño y las referencias a las fotografías actuales, pero **las capturas de pantalla no son los archivos originales**. Mientras no se importen, la web las carga del WordPress vigente.
+Esta entrega incluye el logotipo transparente adjunto en `public/images/martin-logo-transparente.webp`. Las demás fotografías mantienen referencias al sitio vigente; si todavía no se han importado los archivos originales, se cargarán desde WordPress.
 
 1. Cree una carpeta `assets-originales` en la raíz de este proyecto y copie dentro las imágenes que extrajo del sitio anterior. Puede incluir subcarpetas.
 2. Ejecute `npm run assets:import`. El programa reconoce los nombres que aparecen en sus capturas, copia cada imagen válida a `public/images` y actualiza `src/lib/local-assets.ts`.
 3. Si falta alguna fotografía, ejecute `npm run assets:pull` en su Mac con acceso al sitio actual. El programa intentará descargar cada original y conservará la URL del sitio antiguo para los archivos que no consiga.
-4. Compruebe el logo y las tres imágenes del carrusel, y suba `public/images` junto con el código. La carpeta `assets-originales` se omite del repositorio; los archivos finales en `public/images` sí se incluyen.
+4. Compruebe las tres imágenes del carrusel y suba `public/images` junto con el código. La carpeta `assets-originales` se omite del repositorio; los archivos finales en `public/images` sí se incluyen. El logotipo visible es siempre el transparente incluido en esta entrega.
 
-El carrusel utiliza `Aeropuerto.webp`, `Calama_EntradaMonumental_Vialoop_2025.webp` y `Caminoo-desierto.webp`. El logo admite `Logotipo_sanmartin.webp` o `cropped-Logotipo_sanmartin.webp`. Las imágenes blancas de su captura son iconos; la interfaz usa iconos vectoriales nítidos para esa función.
+El carrusel utiliza `Aeropuerto.webp`, `Calama_EntradaMonumental_Vialoop_2025.webp` y `Caminoo-desierto.webp`. Las imágenes blancas de su captura son iconos; la interfaz usa iconos vectoriales nítidos para esa función.
 
 ### Actualizar el repositorio que ya está conectado a Vercel
 
-Copie los archivos de esta versión sobre **su carpeta local existente del repositorio** `martin-atacama-reservas`; conserve su carpeta `.git` y cualquier `.env.local` personal. Después, desde la terminal de VS Code abierta en esa carpeta:
+Extraiga el ZIP de cambios en el Escritorio, **fuera de la carpeta del repositorio**. Copie su contenido sobre la raíz de `martin-atacama-reservas`; conserve `.git`, `.env.local` y sus fotografías en `public/images`. Si el ZIP se extrae como carpeta hermana `martin-atacama-mejoras-v3`, el comando, ejecutado desde la raíz del repositorio, es `cp -R ../martin-atacama-mejoras-v3/. ./`. Compruebe que existen `src/app/refinement.css` y `public/images/martin-logo-transparente.webp` antes de ejecutar:
 
 ```bash
 npm install
-npm run assets:import
 npm run build
 git add .
-git commit -m "Carrusel, reserva en inicio y navegación renovada"
+git commit -m "Mejorar identidad, héroes y reserva de inicio"
 git push origin main
 ```
 
-Si todavía no copió los originales en `assets-originales`, puede omitir temporalmente `npm run assets:import`; el sitio seguirá usando las fotografías del WordPress. El `git push` hará que Vercel publique la nueva versión automáticamente. Revise el dominio estable en la sección **Dominios** del proyecto.
+Si tiene fotografías originales pendientes, ejecute `npm run assets:import` antes del build. El proyecto de Vercel conectado a Git debe generar un despliegue nuevo para este commit. Revise el estado **Ready** y abra el dominio estable indicado en **Dominios**; los enlaces largos que identifican un despliegue anterior continúan mostrando esa versión anterior.
 
 ## Flujo operativo
 

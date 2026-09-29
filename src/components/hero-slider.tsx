@@ -13,7 +13,6 @@ const slides = [
     eyebrow: 'CALAMA · AEROPUERTO · SAN PEDRO',
     title: <>El norte comienza<br />con un buen viaje.</>,
     description: 'Traslados privados planificados con puntualidad, comodidad y atención en cada detalle.',
-    focal: 'center',
   },
   {
     image: media.entrance,
@@ -21,7 +20,6 @@ const slides = [
     eyebrow: 'CALAMA · SERVICIOS A EMPRESAS',
     title: <>Su equipo llega<br />a tiempo, siempre.</>,
     description: 'Rutas a faenas y transporte para empresas, coordinados según sus turnos y necesidades.',
-    focal: 'center',
   },
   {
     image: media.desert,
@@ -29,7 +27,6 @@ const slides = [
     eyebrow: 'MÁS DE 10 AÑOS EN LA REGIÓN',
     title: <>El desierto se vive<br />con confianza.</>,
     description: 'Viajes a San Pedro de Atacama y otros destinos con la experiencia de conductores locales.',
-    focal: 'center',
   },
 ];
 
@@ -48,8 +45,7 @@ export function HeroSlider() {
   return <section className="home-slider" aria-label="Destinos y servicios destacados" onMouseEnter={() => setPaused(true)} onMouseLeave={() => setPaused(false)} onFocusCapture={() => setPaused(true)} onBlurCapture={(event) => { if (!event.currentTarget.contains(event.relatedTarget)) setPaused(false); }}>
     {slides.map((slide, index) => <div className={`hero-slide ${index === active ? 'is-active' : ''}`} key={slide.image} aria-hidden={index !== active} inert={index !== active}>
       <div className="hero-visual">
-        <div className="hero-ambient" style={{ backgroundImage: `url("${slide.image}")` }} />
-        <Image src={slide.image} alt={slide.alt} fill sizes="100vw" unoptimized priority={index === 0} className="hero-photo" style={{ objectPosition: slide.focal }} />
+        <Image src={slide.image} alt={slide.alt} fill sizes="100vw" unoptimized priority={index === 0} className="hero-photo" />
       </div>
       <div className="hero-shade" />
       <div className="container hero-slide-inner">

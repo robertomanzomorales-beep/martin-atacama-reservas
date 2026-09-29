@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState, type FormEvent } from 'react';
 import { ArrowLeft, ArrowRight, CalendarDays, Check, MapPin, Plane, Route, UsersRound } from 'lucide-react';
+import { Reveal } from './reveal';
 
 type Service = 'aeropuerto' | 'san-pedro' | 'empresa' | 'otro';
 const services: { value: Service; label: string; icon: typeof Plane }[] = [
@@ -54,10 +55,19 @@ export function HomeBooking() {
   }
 
   return <section className="home-booking-section" id="reservar" aria-labelledby="home-booking-heading"><div className="container">
-    <div className="home-booking-shell">
+    <Reveal className="home-booking-shell">
+      <aside className="home-booking-aside">
+        <span className="home-booking-overline"><span aria-hidden="true"/> RESERVAS MARTÍN</span>
+        <h2 id="home-booking-heading">Su viaje,<br/><em>bien organizado.</em></h2>
+        <p>Indíquenos cuándo y hacia dónde viaja. Nuestro equipo revisará la disponibilidad y coordinará los detalles con usted.</p>
+        <div className="home-booking-route" aria-hidden="true"><span/><i/><span/></div>
+        <div className="home-booking-aside-note"><span>CALAMA</span><span>SU DESTINO</span></div>
+        <small>Atención personalizada en cada trayecto.</small>
+      </aside>
+      <div className="home-booking-panel">
       <div className="home-booking-heading">
-        <div><span className="eyebrow">PLANIFIQUE SU VIAJE</span><h2 id="home-booking-heading">¿A dónde vamos?</h2></div>
-        <p>Cuéntenos su ruta y coordinaremos los detalles de su traslado.</p>
+        <div><span className="eyebrow">PLANIFIQUE SU TRASLADO</span><h3>{step === 1 ? 'Elija su ruta' : 'Sus datos de contacto'}</h3></div>
+        <div className="home-booking-progress" aria-label={`Paso ${step} de 2`}><span className="current">01 <b>Trayecto</b></span><i/><span className={step === 2 ? 'current' : ''}>02 <b>Contacto</b></span></div>
       </div>
       {state === 'sent' ? <div className="home-booking-success" role="status"><span className="success-icon"><Check size={28}/></span><div><h3>Solicitud recibida</h3><p>Guardamos los datos de su viaje. Nuestro equipo revisará la disponibilidad y se comunicará con usted.</p><strong>Referencia: {reference}</strong></div><button type="button" className="text-link" onClick={() => { setState('idle'); setStep(1); setReference(''); }}>Nueva solicitud <ArrowRight size={16}/></button></div> :
       <form ref={formRef} onSubmit={submit} className="home-booking-form">
@@ -74,7 +84,7 @@ export function HomeBooking() {
             <label className="time-field">Hora <span>*</span><input data-route-field type="time" name="travelTime" required /></label>
             <label className="passengers-field">Pasajeros <span>*</span><input data-route-field type="number" name="passengers" min={1} max={30} defaultValue={1} required /></label>
           </div>
-          <div className="home-booking-bottom"><p><Check size={16}/> Su solicitud será confirmada por nuestro equipo.</p><button type="button" className="button button-dark" onClick={advance}>Continuar <ArrowRight size={18}/></button></div>
+          <div className="home-booking-bottom"><p><Check size={16}/> Reserva sujeta a confirmación de disponibilidad.</p><button type="button" className="button button-dark" onClick={advance}>Continuar <ArrowRight size={18}/></button></div>
         </fieldset>
         <fieldset className="home-booking-step home-booking-contact" hidden={step !== 2}>
           <legend className="sr-only">Datos del pasajero</legend>
@@ -86,6 +96,7 @@ export function HomeBooking() {
         <label className="honeypot" aria-hidden="true">Sitio web<input name="website" tabIndex={-1} autoComplete="off"/></label>
         {error && <p className="form-error" role="alert">{error}</p>}
       </form>}
-    </div>
+      </div>
+    </Reveal>
   </div></section>;
 }

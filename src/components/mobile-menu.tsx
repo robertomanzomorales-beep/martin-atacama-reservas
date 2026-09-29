@@ -5,6 +5,17 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { ArrowUpRight, Menu, X } from 'lucide-react';
 
+export function DesktopNav() {
+  const pathname = usePathname();
+  return <nav className="nav-links" aria-label="Navegación principal">
+    <Link href="/" aria-current={pathname === '/' ? 'page' : undefined}>Inicio</Link>
+    <Link href="/nosotros" aria-current={pathname === '/nosotros' ? 'page' : undefined}>Nosotros</Link>
+    <Link href="/contacto" aria-current={pathname === '/contacto' ? 'page' : undefined}>Contacto</Link>
+    <Link className="nav-book" href="/reservar" aria-current={pathname === '/reservar' ? 'page' : undefined}>Reservar <ArrowUpRight size={17}/></Link>
+    <a className="nav-email" href="mailto:contacto@transferatacamachile.cl">contacto@transferatacamachile.cl</a>
+  </nav>;
+}
+
 const links = [
   { href: '/', label: 'Inicio' },
   { href: '/nosotros', label: 'Nosotros' },

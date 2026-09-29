@@ -5,7 +5,7 @@ const uploads = 'https://transferatacamachile.cl/wp-content/uploads';
 // Las fotos originales del proyecto tienen prioridad. Mientras falte alguna,
 // se conserva su URL del sitio anterior para que el diseño siga siendo visible.
 export const media = {
-  logo: localAssets.logo || `${uploads}/2025/12/Logotipo_sanmartin.webp`,
+  logo: '/images/martin-logo-transparente.webp',
   airport: localAssets.airport || `${uploads}/2025/12/Aeropuerto.webp`,
   entrance: localAssets.entrance || `${uploads}/2025/12/Calama_EntradaMonumental_Vialoop_2025.webp`,
   desert: localAssets.desert || `${uploads}/2025/12/Caminoo-desierto.webp`,
