@@ -1,4 +1,0 @@
-import Link from 'next/link';
-import { SiteShell } from '@/components/site-shell';
-export const dynamic = 'force-dynamic';
-export default async function ResultPage({ searchParams }: { searchParams: Promise<{ ref?: string; estado?: string }> }) { const { ref, estado } = await searchParams; const message = estado === 'pagado' ? 'Su pago fue recibido.' : estado === 'pendiente' ? 'Su pago está pendiente de confirmación.' : estado === 'rechazado' ? 'El pago no se completó.' : 'No pudimos verificar el pago en este momento.'; return <SiteShell><section className="payment-section"><div className="payment-card"><span className="eyebrow">ESTADO DE PAGO</span><h1>{message}</h1>{ref && <p>Referencia: {ref}</p>}<p>Si necesita ayuda, comuníquese con nuestro equipo. La reserva se confirma por separado.</p><Link href="/" className="button button-dark">Volver al inicio</Link></div></section></SiteShell>; }
