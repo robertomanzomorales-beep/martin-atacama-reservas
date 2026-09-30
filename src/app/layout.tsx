@@ -3,6 +3,7 @@ import './globals.css';
 import './premium.css';
 import './refinement.css';
 import './studio-v6.css';
+import './admin.css';
 
 export const metadata: Metadata = {
   title: { default: 'Martín Atacama Transfers | Traslados en Calama y San Pedro', template: '%s | Martín Atacama Transfers' },
