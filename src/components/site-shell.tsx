@@ -1,8 +1,9 @@
 import Link from 'next/link';
 import Image from 'next/image';
-import { ArrowUp, MapPin, Phone } from 'lucide-react';
+import { ArrowUpToLine, MapPin, Phone } from 'lucide-react';
 import { DesktopNav, MobileMenu } from './mobile-menu';
 import { Reveal } from './reveal';
+import { FloatingWhatsApp } from './floating-whatsapp';
 import { media } from '@/lib/media';
 
 const whatsapp = 'https://wa.me/56997106497';
@@ -40,7 +41,7 @@ export function Footer() {
       <div><dt>Ubicación</dt><dd>Calama, Región de Antofagasta</dd></div>
       <div><dt>Atención</dt><dd>Solicitudes de traslado en línea, todos los días</dd></div></dl>
     </div>
-  </Reveal><div className="container footer-bottom"><span>© {new Date().getFullYear()} Martín Atacama Transfers. Todos los derechos reservados.</span><span>Diseñado por <a href="https://vialoop.cl" target="_blank" rel="noopener noreferrer">vialoop.cl</a></span></div><a href="#top" className="back-to-top" aria-label="Volver al inicio"><ArrowUp size={20}/></a></footer>;
+  </Reveal><div className="container footer-bottom"><span>© {new Date().getFullYear()} Martín Atacama Transfers. Todos los derechos reservados.</span><span>Diseñado por <a href="https://vialoop.cl" target="_blank" rel="noopener noreferrer">vialoop.cl</a></span></div><a href="#top" className="back-to-top" aria-label="Volver al inicio"><ArrowUpToLine size={20} strokeWidth={1.8}/></a></footer>;
 }
 export function SiteShell({ children }: { children: React.ReactNode }) { return <><Header/><main>{children}</main><Footer/></>; }
-export function WhatsAppPill() { return <a className="whatsapp-pill" href={whatsapp} target="_blank" rel="noopener noreferrer" aria-label="Consultar traslado por WhatsApp"><span>¿Necesita transporte?</span><span className="whatsapp-icon"><Phone size={20}/></span></a>; }
+export function WhatsAppPill() { return <FloatingWhatsApp />; }

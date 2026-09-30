@@ -399,14 +399,22 @@ body { color: var(--ink); }
 .footer-contact dd { font-size: 13px; }
 .footer-bottom { padding: 21px 0; }
 .back-to-top {
-  width: 39px;
-  height: 39px;
-  border: 1px solid #b7c9cf;
+  left: 20px;
+  right: auto;
+  bottom: 18px;
+  width: 44px;
+  height: 44px;
+  border: 1px solid #d4aa65;
   border-radius: 50%;
-  background: #123246;
+  background: #102d40;
+  color: #edc887;
   box-shadow: none;
+  transition: background .25s, color .25s, transform .25s;
 }
+.back-to-top:hover { transform: translateY(-3px); background: #d4aa65; color: #071b2b; }
 .whatsapp-pill { bottom: 20px; right: 20px; }
+.whatsapp-pill { transition: opacity .24s ease, transform .24s ease, visibility .24s; }
+.whatsapp-pill.is-footer-visible { opacity: 0; visibility: hidden; pointer-events: none; transform: translateY(10px); }
 .whatsapp-pill>span:first-child { border-radius: 4px; background: #0b293b; box-shadow: 0 5px 14px #07182720; }
 .whatsapp-icon {
   width: 46px;
@@ -415,6 +423,7 @@ body { color: var(--ink); }
   background: #286b59;
   box-shadow: 0 5px 14px #07182720;
 }
+.whatsapp-icon img { display: block; width: 24px; height: 24px; object-fit: contain; }
 .whatsapp-pill:hover .whatsapp-icon { background: #1c584a; }
 
 @media (max-width: 1100px) {
@@ -426,6 +435,8 @@ body { color: var(--ink); }
   .home-booking-next { grid-column: span 2; }
 }
 @media (max-width: 900px) {
+  .footer-bottom { padding: 24px 0 28px 58px; }
+  .back-to-top { left: 16px; right: auto; bottom: 17px; }
   .site-header.is-fixed-mobile { position: fixed; inset: 0 0 auto; width: 100%; }
   .site-header.is-fixed-mobile + .site-header-spacer { display: block; height: 76px; }
   .nav-links { display: none; }
