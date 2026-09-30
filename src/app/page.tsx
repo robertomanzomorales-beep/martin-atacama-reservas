@@ -35,7 +35,7 @@ export default function Home() {
       <div className="reservation-promo-shade" aria-hidden="true" />
       <div className="container reservation-promo-inner"><Reveal className="reservation-promo-copy">
         <span className="reservation-promo-eyebrow">NUEVO · RESERVAS EN LÍNEA</span>
-        <h2 id="reservation-promo-title">Solicite su traslado y pague en linea<br/>en línea.</h2>
+        <h2 id="reservation-promo-title">Solicite su traslado y pague en linea</h2>
         <p>Indíquenos origen, destino, fecha y pasajeros. Revisaremos la disponibilidad y le enviaremos los detalles para confirmar el servicio.</p>
         <a href="#reservar" className="button button-yellow">Ir a reservas en línea <ArrowUpRight size={18}/></a>
       </Reveal></div>
